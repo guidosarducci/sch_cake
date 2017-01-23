@@ -1793,7 +1793,7 @@ static int cake_init(struct Qdisc *sch, struct nlattr *opt)
 	/* codel_cache_init(); */
 	sch->limit = 10240;
 	q->tin_mode = CAKE_MODE_DIFFSERV3;
-	q->flow_mode  = CAKE_FLOW_TRIPLE;
+	q->flow_mode  = CAKE_FLOW_FLOWS;
 
 	q->rate_bps = 0; /* unlimited by default */
 
