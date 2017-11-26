@@ -5,6 +5,7 @@
  * Copyright (C) 2014-2017 Dave Täht <dave.taht@gmail.com>
  * Copyright (C) 2015-2017 Sebastian Moeller <moeller0@gmx.de>
  * (C) 2015-2017 Kevin Darbyshire-Bryant <kevin@darbyshire-bryant.me.uk>
+ * Copyright (C) 2016 Tony Ambardar <Tony.Ambardar@gmail.com>
  * Copyright (C) 2017 Ryan Mounce <ryan@mounce.com.au>
  *
  * Redistribution and use in source and binary forms, with or without
