@@ -851,10 +851,11 @@ static u32 cake_classify(struct Qdisc *sch, struct cake_tin_data *t,
 			return 0;
 		}
 #endif
-		if (TC_H_MIN(res.classid) <= CAKE_QUEUES)
+		if (TC_H_MAJ(res.classid) == sch->handle &&
+			TC_H_MIN(res.classid) <= CAKE_QUEUES)
 			return TC_H_MIN(res.classid);
 	}
-	return 0;
+	return cake_hash(t, skb, flow_mode) + 1;
 }
 
 /* helper functions : might be changed when/if skb use a standard list_head */
