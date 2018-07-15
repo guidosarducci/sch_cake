@@ -209,7 +209,7 @@ struct cake_tin_data {
 
 struct cake_sched_data {
 	struct tcf_proto __rcu *filter_list; /* optional external classifier */
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 13, 0)
 	struct tcf_block *block;
 #endif
 	struct cake_tin_data *tins;
@@ -2729,7 +2729,7 @@ static void cake_destroy(struct Qdisc *sch)
 	struct cake_sched_data *q = qdisc_priv(sch);
 
 	qdisc_watchdog_cancel(&q->watchdog);
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 13, 0)
 	tcf_destroy_chain(&q->filter_list);
 #else
 	tcf_block_put(q->block);
@@ -2774,7 +2774,7 @@ static int cake_init(struct Qdisc *sch, struct nlattr *opt,
 			return err;
 	}
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 13, 0)
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 16, 0)
 	err = tcf_block_get(&q->block, &q->filter_list);
 #else
@@ -3018,7 +3018,7 @@ static void cake_unbind(struct Qdisc *q, unsigned long cl)
 {
 }
 
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 13, 0)
 static struct tcf_proto __rcu **cake_find_tcf(struct Qdisc *sch, unsigned long cl)
 #else
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 16, 0)
@@ -3033,7 +3033,7 @@ static struct tcf_block *cake_tcf_block(struct Qdisc *sch, unsigned long cl,
 
 	if (cl)
 		return NULL;
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 13, 0)
 	return &q->filter_list;
 #else
 	return q->block;
@@ -3148,7 +3148,7 @@ static void cake_walk(struct Qdisc *sch, struct qdisc_walker *arg)
 }
 
 static const struct Qdisc_class_ops cake_class_ops = {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 13, 0)
 	.tcf_chain	=	cake_find_tcf,
 #else
 	.tcf_block	=	cake_tcf_block,
