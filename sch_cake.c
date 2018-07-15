@@ -1684,7 +1684,7 @@ static u32 cake_classify(struct Qdisc *sch, struct cake_tin_data **t,
 		goto hash;
 
 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 13, 0)
 	result = tc_classify(skb, filter, &res, false);
 #else
 	result = tcf_classify(skb, filter, &res, false);
@@ -1695,7 +1695,7 @@ static u32 cake_classify(struct Qdisc *sch, struct cake_tin_data **t,
 		switch (result) {
 		case TC_ACT_STOLEN:
 		case TC_ACT_QUEUED:
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 13, 0)
 		case TC_ACT_TRAP:
 #endif
 			*qerr = NET_XMIT_SUCCESS | __NET_XMIT_STOLEN;
