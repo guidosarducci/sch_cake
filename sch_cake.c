@@ -3153,7 +3153,7 @@ static const struct Qdisc_class_ops cake_class_ops = {
 #else
 	.tcf_block	=	cake_tcf_block,
 #endif
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 13, 0)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 0)
 	.get		=	cake_find,
 	.put		=	cake_unbind,
 #else
