@@ -1735,7 +1735,11 @@ static s32 cake_enqueue(struct sk_buff *skb, struct Qdisc *sch,
 	if (idx == 0) {
 		if (ret & __NET_XMIT_BYPASS)
 			qdisc_qstats_drop(sch);
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 8, 0)
+		kfree_skb(skb);
+#else
 		__qdisc_drop(skb, to_free);
+#endif
 		return ret;
 	}
 	idx--;
